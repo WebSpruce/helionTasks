@@ -1,0 +1,18 @@
+a. 
+SELECT DISTINCT(zamowienia.Zamawiajacy) 
+FROM `zamowienia` 
+JOIN zamowieniapozycje ON zamowienia.ZamowienieID = zamowieniapozycje.ZamowienieID 
+JOIN ksiazki ON zamowieniapozycje.TytulID = ksiazki.TytulID 
+WHERE DataZamowienia >= '2017-11-01' AND ksiazki.Nazwa LIKE '%SQL%';
+
+b.
+SELECT Nazwa, SUM(zamowieniapozycje.Ilosc) as "Suma zamówionych książek" 
+FROM `ksiazki` 
+JOIN zamowieniapozycje ON ksiazki.TytulID = zamowieniapozycje.TytulID 
+GROUP BY Nazwa;
+
+c. 
+SELECT ZamowienieID 
+FROM `zamowieniapozycje` 
+GROUP BY ZamowienieID 
+HAVING SUM(Ilosc) >= 4;
